@@ -25,6 +25,7 @@ enum class GameState {
 class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context, attributeSet) {
 
     var score = 0
+    var backupScore = 0
 
     private var boardItemInset = 24f
 
@@ -288,6 +289,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
     }
 
     fun goRight() {
+        backupScore = score
         rectAnimation.cancel()
         rectAnimation.removeAllListeners()
         movingTiles.clear()
@@ -428,6 +430,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
     }
 
     fun goLeft() {
+        backupScore = score
         rectAnimation.cancel()
         rectAnimation.removeAllListeners()
         movingTiles.clear()
@@ -568,6 +571,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
     }
 
     fun goUp() {
+        backupScore = score
         rectAnimation.cancel()
         rectAnimation.removeAllListeners()
         movingTiles.clear()
@@ -708,6 +712,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
     }
 
     fun goDown() {
+        backupScore = score
         rectAnimation.cancel()
         rectAnimation.removeAllListeners()
         movingTiles.clear()
@@ -868,6 +873,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
     fun undo() {
         if (gameState == GameState.PLAYING) {
             items = backupList.toMutableList()
+            score = backupScore
             invalidate()
         }
     }

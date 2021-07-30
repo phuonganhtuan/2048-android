@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         }
         viewBinding.buttonUndo.setOnClickListener {
             viewBinding.board.undo()
+            displayScore()
         }
         viewBinding.buttonNew.setOnClickListener {
             saveScoreIfNeed()
