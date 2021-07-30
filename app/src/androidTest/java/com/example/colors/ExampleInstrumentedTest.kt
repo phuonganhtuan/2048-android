@@ -1,4 +1,4 @@
-package com.example.cc
+package com.example.colors
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

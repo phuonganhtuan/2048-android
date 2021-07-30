@@ -13,14 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.725" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl3"
@@ -30,7 +30,7 @@
         app:layout_constraintBottom_toTopOf="@id/board"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.cc.Board
+    <com.example.colors.Board
         android:id="@+id/boardBg"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.6" />
 
-    <com.example.cc.BoardContent
+    <com.example.colors.BoardContent
         android:id="@+id/board"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -62,9 +62,9 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/bg_yellow"
         android:gravity="center"
-        android:text="2048"
+        android:text="Colors"
         android:textColor="@android:color/white"
-        android:textSize="60sp"
+        android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/board"
         app:layout_constraintDimensionRatio="3:2"
@@ -73,64 +73,64 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="56dp"
+        android:layout_weight="3"
+        android:background="@drawable/bg_dark"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/textTitle"
         app:layout_constraintEnd_toStartOf="@+id/gl2"
-        app:layout_constraintStart_toStartOf="@+id/gl1"
-        app:layout_constraintTop_toTopOf="@+id/textTitle">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="3"
-            android:background="@drawable/bg_dark"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="SCORE"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textScore"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+        app:layout_constraintStart_toEndOf="@+id/textTitle"
+        app:layout_constraintTop_toTopOf="@id/layout2">
 
         <TextView
-            android:id="@+id/buttonNew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="SCORE"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textScore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_weight="5"
-            android:background="@drawable/bg_button"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:orientation="vertical"
-            android:text="NEW"
+            android:text="0"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/buttonNew"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="5"
+        android:background="@drawable/bg_button"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:text="NEW GAME"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textTitle"
+        app:layout_constraintEnd_toEndOf="@+id/layout2"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:id="@+id/layout2"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/textTitle"
@@ -141,8 +141,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="3"
+            android:layout_marginBottom="56dp"
             android:background="@drawable/bg_dark"
             android:orientation="vertical">
 
@@ -178,6 +177,7 @@
             android:gravity="center"
             android:orientation="vertical"
             android:text="UNDO"
+            android:visibility="invisible"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -188,7 +188,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Made by PAT"
-        android:textColor="#c9c1b3"
+        android:textColor="#B3BFC9"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

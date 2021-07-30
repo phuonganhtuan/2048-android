@@ -1,4 +1,4 @@
-package com.example.cc
+package com.example.colors
 
 import org.junit.Test
 

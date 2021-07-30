@@ -1,4 +1,4 @@
-package com.example.cc
+package com.example.colors
 
 import android.graphics.RectF
 

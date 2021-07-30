@@ -1,4 +1,4 @@
-package com.example.cc
+package com.example.colors
 
 import android.annotation.SuppressLint
 import android.app.ActionBar
@@ -9,7 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
-import com.example.cc.databinding.ActivityMainBinding
+import com.example.colors.databinding.ActivityMainBinding
 import kotlin.math.atan2
 
 
@@ -132,6 +132,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayScore() {
         viewBinding.textScore.text = viewBinding.board.score.toString()
+        when (viewBinding.board.score) {
+            1000 -> {
+                viewBinding.board.numOfColors += 1
+            }
+            2200 -> {
+                viewBinding.board.numOfColors += 1
+            }
+            3000 -> {
+                viewBinding.board.numOfColors += 1
+            }
+        }
     }
 
     private fun initData() = with(viewBinding.board) {
@@ -142,7 +153,7 @@ class MainActivity : AppCompatActivity() {
     private fun beginGame() = with(viewBinding.board) {
         resetBoard()
         genNewItem()
-        genNewItem()
+        genNewItem(getCurrentItem())
         val sharedPreferences = getSharedPreferences("2048SP", MODE_PRIVATE)
         viewBinding.textBest.text = sharedPreferences.getInt("bestScore", 0).toString()
         viewBinding.textScore.text = "0"

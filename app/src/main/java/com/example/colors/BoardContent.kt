@@ -1,4 +1,4 @@
-package com.example.cc
+package com.example.colors
 
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -8,14 +8,11 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
-import android.os.Handler
-import android.os.Looper
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import java.util.*
-import kotlin.math.pow
 
 
 enum class GameState {
@@ -39,13 +36,15 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
     var onGameOver: (() -> Unit)? = null
     var onGameWin: (() -> Unit)? = null
 
+    var numOfColors = 5
+
     private var newItemPos = 0
     private var mergedPos = mutableListOf<Int>()
     val rectAnimation = AnimatorSet()
 
     private val boardPaintOver by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#90b8aca0")
+        paint.color = Color.parseColor("#90a0abb8")
         paint.strokeWidth = 4f
         paint.style = Paint.Style.FILL
         paint
@@ -53,7 +52,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
 
     private val boardPaintWin by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#90ebc765")
+        paint.color = Color.parseColor("#9065b1eb")
         paint.strokeWidth = 4f
         paint.style = Paint.Style.FILL
         paint
@@ -112,17 +111,14 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         itemPaint.clear()
         mergingTiles.clear()
         val colors = listOf(
-            "#f7f2e9",
-            "#f0e5d1",
-            "#f0bf84",
-            "#eba76c",
-            "#eb816c",
-            "#ed5651",
-            "#f7dd72",
-            "#f2d355",
-            "#f7d548",
-            "#f7d548",
-            "#c391ff"
+            "#3a82e8",
+            "#e83a54",
+            "#32db6a",
+            "#e8e23a",
+            "#e8a03a",
+            "#916d3a",
+            "#6662de",
+            "#e6e6e6",
         )
         for (element in colors) {
             val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -334,10 +330,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 3 downTo 1) {
             if (items[i] == items[i - 1] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i - 1, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 1) {
                     items[0] = 0
                     mergingTiles.add(Pair(0, 1))
@@ -354,10 +350,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 7 downTo 5) {
             if (items[i] == items[i - 1] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i - 1, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 5) {
                     items[4] = 0
                     mergingTiles.add(Pair(4, 5))
@@ -374,10 +370,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 11 downTo 9) {
             if (items[i] == items[i - 1] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i - 1, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 9) {
                     items[8] = 0
                     mergingTiles.add(Pair(8, 9))
@@ -394,10 +390,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 15 downTo 13) {
             if (items[i] == items[i - 1] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i - 1, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 13) {
                     items[12] = 0
                     mergingTiles.add(Pair(12, 13))
@@ -412,13 +408,15 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
                 }
             }
         }
-        invalidate()
+        checkIfWin()
         if (!(backupList.toTypedArray() contentEquals items.toTypedArray())) {
+//            genNewItem()
             genNewItem()
         } else {
             backupList = a.toList()
         }
         checkIfWinOrLose()
+        invalidate()
     }
 
     fun goLeft() {
@@ -475,10 +473,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 0 until 3) {
             if (items[i] == items[i + 1] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i + 1, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 2) {
                     items[3] = 0
                     mergingTiles.add(Pair(3, 2))
@@ -495,10 +493,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 4 until 7) {
             if (items[i] == items[i + 1] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i + 1, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 6) {
                     items[7] = 0
                     mergingTiles.add(Pair(7, 6))
@@ -515,10 +513,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 8 until 11) {
             if (items[i] == items[i + 1] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i + 1, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 10) {
                     items[11] = 0
                     mergingTiles.add(Pair(11, 10))
@@ -535,10 +533,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 12 until 15) {
             if (items[i] == items[i + 1] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i + 1, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 14) {
                     items[15] = 0
                     mergingTiles.add(Pair(15, 14))
@@ -553,7 +551,9 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
                 }
             }
         }
+        checkIfWin()
         if (!(backupList.toTypedArray() contentEquals items.toTypedArray())) {
+//            genNewItem()
             genNewItem()
         } else {
             backupList = a.toList()
@@ -616,10 +616,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 0 until 12 step 4) {
             if (items[i] == items[i + 4] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i + 4, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 8) {
                     items[12] = 0
                     mergingTiles.add(Pair(12, 8))
@@ -636,10 +636,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 1 until 13 step 4) {
             if (items[i] == items[i + 4] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i + 4, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 9) {
                     items[13] = 0
                     mergingTiles.add(Pair(13, 9))
@@ -656,10 +656,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 2 until 14 step 4) {
             if (items[i] == items[i + 4] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i + 4, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 10) {
                     items[14] = 0
                     mergingTiles.add(Pair(14, 10))
@@ -676,10 +676,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 3 until 15 step 4) {
             if (items[i] == items[i + 4] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i + 4, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 11) {
                     items[15] = 0
                     mergingTiles.add(Pair(15, 11))
@@ -694,7 +694,9 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
                 }
             }
         }
+        checkIfWin()
         if (!(backupList.toTypedArray() contentEquals items.toTypedArray())) {
+//            genNewItem()
             genNewItem()
         } else {
             backupList = a.toList()
@@ -757,10 +759,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 12 downTo 4 step 4) {
             if (items[i] == items[i - 4] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i - 4, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 4) {
                     items[0] = 0
                     mergingTiles.add(Pair(0, 4))
@@ -777,10 +779,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 13 downTo 5 step 4) {
             if (items[i] == items[i - 4] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i - 4, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 5) {
                     items[1] = 0
                     mergingTiles.add(Pair(1, 5))
@@ -797,10 +799,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 14 downTo 6 step 4) {
             if (items[i] == items[i - 4] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i - 4, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 6) {
                     items[2] = 0
                     mergingTiles.add(Pair(2, 6))
@@ -817,10 +819,10 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
         for (i in 15 downTo 7 step 4) {
             if (items[i] == items[i - 4] && items[i] != 0) {
-                items[i] += 1
+                items[i] = 0
                 mergingTiles.add(Pair(i - 4, i))
                 mergedPos.add(i)
-                score += 2.toDouble().pow(items[i]).toInt()
+                score += 10
                 if (i == 7) {
                     items[3] = 0
                     mergingTiles.add(Pair(3, 7))
@@ -835,7 +837,9 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
                 }
             }
         }
+        checkIfWin()
         if (!(backupList.toTypedArray() contentEquals items.toTypedArray())) {
+//            genNewItem()
             genNewItem()
         } else {
             backupList = a.toList()
@@ -844,14 +848,21 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         invalidate()
     }
 
-    fun genNewItem() {
+    fun getCurrentItem() = items.filter { it != 0 }[0]
+
+    fun genNewItem(except: Int = 0) {
+        if (gameState == GameState.WIN) return
         val numOfEmptySlot = items.filter { it == 0 }.size
         val genSlot = (0 until numOfEmptySlot).random()
         var index = 0
         for (i in 0 until items.size) {
             if (items[i] == 0) {
                 if (index == genSlot) {
-                    val itemNum = (1..2).random()
+                    var itemNum: Int
+                    while (true) {
+                        itemNum = (1..numOfColors).random()
+                        if (itemNum != except) break
+                    }
                     items[i] = itemNum
                     newItemPos = i
                     break
@@ -870,6 +881,13 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         }
     }
 
+    private fun checkIfWin() {
+        val numOfEmptySlot = items.filter { it == 0 }.size
+        if (numOfEmptySlot == 16) {
+            displayGameWin()
+        }
+    }
+
     private fun checkIfWinOrLose() {
         val numOfEmptySlot = items.filter { it == 0 }.size
         var isHaveEqual = false
@@ -882,9 +900,6 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         if (numOfEmptySlot == 0 && !isHaveEqual) {
             displayGameOver()
             return
-        }
-        if (items.contains(11)) {
-            displayGameWin()
         }
     }
 
@@ -1009,40 +1024,40 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
                     boardItemInset / 1.5f,
                     itemPaint[items[i] - 1]
                 )
-                val text = 2.toDouble().pow(items[i]).toInt().toString()
-                when (items[i]) {
-                    1, 2, 3 -> {
-                        textPaint1.textSize = width / 8f
-                        textPaint2.textSize = width / 8f
-                    }
-                    4, 5, 6 -> {
-                        textPaint1.textSize = 0.78f * width / 8f
-                        textPaint2.textSize = 0.78f * width / 8f
-                    }
-                    7, 8, 9 -> {
-                        textPaint1.textSize = 0.66f * width / 8f
-                        textPaint2.textSize = 0.66f * width / 8f
-                    }
-                    else -> {
-                        textPaint1.textSize = 0.58f * width / 8f
-                        textPaint2.textSize = 0.58f * width / 8f
-                    }
-                }
-                if (items[i] < 3) {
-                    canvas?.drawText(
-                        text,
-                        (rects[i].left + rects[i].right) / 2f - (text.length * textPaint1.textSize) / 3.5f,
-                        (rects[i].top + rects[i].bottom) / 2 + textPaint1.textSize / 3f,
-                        textPaint1
-                    )
-                } else {
-                    canvas?.drawText(
-                        text,
-                        (rects[i].left + rects[i].right) / 2f - (text.length * textPaint2.textSize) / 3.5f,
-                        (rects[i].top + rects[i].bottom) / 2 + textPaint2.textSize / 3f,
-                        textPaint2
-                    )
-                }
+//                val text = 2.toDouble().pow(items[i]).toInt().toString()
+//                when (items[i]) {
+//                    1, 2, 3 -> {
+//                        textPaint1.textSize = width / 8f
+//                        textPaint2.textSize = width / 8f
+//                    }
+//                    4, 5, 6 -> {
+//                        textPaint1.textSize = 0.78f * width / 8f
+//                        textPaint2.textSize = 0.78f * width / 8f
+//                    }
+//                    7, 8, 9 -> {
+//                        textPaint1.textSize = 0.66f * width / 8f
+//                        textPaint2.textSize = 0.66f * width / 8f
+//                    }
+//                    else -> {
+//                        textPaint1.textSize = 0.58f * width / 8f
+//                        textPaint2.textSize = 0.58f * width / 8f
+//                    }
+//                }
+//                if (items[i] < 3) {
+//                    canvas?.drawText(
+//                        text,
+//                        (rects[i].left + rects[i].right) / 2f - (text.length * textPaint1.textSize) / 3.5f,
+//                        (rects[i].top + rects[i].bottom) / 2 + textPaint1.textSize / 3f,
+//                        textPaint1
+//                    )
+//                } else {
+//                    canvas?.drawText(
+//                        text,
+//                        (rects[i].left + rects[i].right) / 2f - (text.length * textPaint2.textSize) / 3.5f,
+//                        (rects[i].top + rects[i].bottom) / 2 + textPaint2.textSize / 3f,
+//                        textPaint2
+//                    )
+//                }
                 if (i == newItemPos) {
                     val animateLeft: ObjectAnimator = ObjectAnimator.ofFloat(
                         rects[i],
@@ -1091,40 +1106,40 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
                 )
             }
         }
-        mergedPos.forEach { i ->
-            val animateLeft: ObjectAnimator = ObjectAnimator.ofFloat(
-                rects[i],
-                "left",
-                rects[i].left - boardItemInset,
-                rects[i].left
-            )
-            val animateRight: ObjectAnimator = ObjectAnimator.ofFloat(
-                rects[i],
-                "right",
-                rects[i].right + boardItemInset,
-                rects[i].right
-            )
-            val animateTop: ObjectAnimator =
-                ObjectAnimator.ofFloat(
-                    rects[i],
-                    "top",
-                    rects[i].top - boardItemInset,
-                    rects[i].top
-                )
-            val animateBottom: ObjectAnimator = ObjectAnimator.ofFloat(
-                rects[i],
-                "bottom",
-                rects[i].bottom + boardItemInset,
-                rects[i].bottom
-            )
-            animateRight.addUpdateListener {
-                postInvalidate()
-            }
-            val rectAnimation = AnimatorSet()
-            rectAnimation.interpolator = AccelerateDecelerateInterpolator()
-            rectAnimation.playTogether(animateLeft, animateRight, animateBottom, animateTop)
-            rectAnimation.setDuration(200).start()
-        }
+//        mergedPos.forEach { i ->
+//            val animateLeft: ObjectAnimator = ObjectAnimator.ofFloat(
+//                rects[i],
+//                "left",
+//                rects[i].left - boardItemInset,
+//                rects[i].left
+//            )
+//            val animateRight: ObjectAnimator = ObjectAnimator.ofFloat(
+//                rects[i],
+//                "right",
+//                rects[i].right + boardItemInset,
+//                rects[i].right
+//            )
+//            val animateTop: ObjectAnimator =
+//                ObjectAnimator.ofFloat(
+//                    rects[i],
+//                    "top",
+//                    rects[i].top - boardItemInset,
+//                    rects[i].top
+//                )
+//            val animateBottom: ObjectAnimator = ObjectAnimator.ofFloat(
+//                rects[i],
+//                "bottom",
+//                rects[i].bottom + boardItemInset,
+//                rects[i].bottom
+//            )
+//            animateRight.addUpdateListener {
+//                postInvalidate()
+//            }
+//            val rectAnimation = AnimatorSet()
+//            rectAnimation.interpolator = AccelerateDecelerateInterpolator()
+//            rectAnimation.playTogether(animateLeft, animateRight, animateBottom, animateTop)
+//            rectAnimation.setDuration(200).start()
+//        }
         mergedPos.clear()
         when (gameState) {
             GameState.PLAYING -> {
@@ -1168,40 +1183,6 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
                     boardItemInset / 1.5f,
                     itemPaint[backupList[i] - 1]
                 )
-                val text = 2.toDouble().pow(backupList[i]).toInt().toString()
-                when (backupList[i]) {
-                    1, 2, 3 -> {
-                        textPaint1.textSize = width / 8f
-                        textPaint2.textSize = width / 8f
-                    }
-                    4, 5, 6 -> {
-                        textPaint1.textSize = 0.78f * width / 8f
-                        textPaint2.textSize = 0.78f * width / 8f
-                    }
-                    7, 8, 9 -> {
-                        textPaint1.textSize = 0.66f * width / 8f
-                        textPaint2.textSize = 0.66f * width / 8f
-                    }
-                    else -> {
-                        textPaint1.textSize = 0.58f * width / 8f
-                        textPaint2.textSize = 0.58f * width / 8f
-                    }
-                }
-                if (backupList[i] < 3) {
-                    canvas?.drawText(
-                        text,
-                        (rects[i].left + rects[i].right) / 2f - (text.length * textPaint1.textSize) / 3.5f,
-                        (rects[i].top + rects[i].bottom) / 2 + textPaint1.textSize / 3f,
-                        textPaint1
-                    )
-                } else {
-                    canvas?.drawText(
-                        text,
-                        (rects[i].left + rects[i].right) / 2f - (text.length * textPaint2.textSize) / 3.5f,
-                        (rects[i].top + rects[i].bottom) / 2 + textPaint2.textSize / 3f,
-                        textPaint2
-                    )
-                }
             } else {
                 canvas?.drawRoundRect(
                     rects[i],

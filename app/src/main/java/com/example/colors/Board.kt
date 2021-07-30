@@ -1,4 +1,4 @@
-package com.example.cc
+package com.example.colors
 
 import android.content.Context
 import android.graphics.Canvas
@@ -23,7 +23,7 @@ class Board(context: Context?, attributeSet: AttributeSet) : View(context, attri
 
     private val boardPaint by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#b8aca0")
+        paint.color = Color.parseColor("#a0aeb8")
         paint.strokeWidth = 4f
         paint.style = Paint.Style.FILL
         paint
@@ -31,7 +31,7 @@ class Board(context: Context?, attributeSet: AttributeSet) : View(context, attri
 
     private val boardItemPaint by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#c9c1b3")
+        paint.color = Color.parseColor("#b3bec9")
         paint.strokeWidth = 4f
         paint.style = Paint.Style.FILL
         paint

@@ -4,14 +4,14 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.cc",
+  "applicationId": "com.example.colors",
   "variantName": "processReleaseResources",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "versionCode": 5,
-      "versionName": "1.3",
+      "versionName": "1.2",
       "outputFile": "app-release.apk"
     }
   ]
