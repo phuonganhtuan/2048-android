@@ -26,12 +26,20 @@ class MainActivity : AppCompatActivity() {
             initData()
             beginGame()
             viewBinding.board.invalidate()
+            viewBinding.boardBg.invalidate()
         }, 300)
         viewBinding.board.setOnClickListener {
         }
         gestureDetectorCompat = GestureDetectorCompat(this, object : SimpleOnGestureListener() {
-            override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-                val angle = Math.toDegrees(atan2((e1.y - e2.y).toDouble(), (e2.x - e1.x).toDouble())).toFloat()
+            override fun onFling(
+                e1: MotionEvent,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                val angle =
+                    Math.toDegrees(atan2((e1.y - e2.y).toDouble(), (e2.x - e1.x).toDouble()))
+                        .toFloat()
                 if (angle > -45 && angle <= 45) {
                     viewBinding.board.goRight()
                     displayScore()
@@ -91,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initData() = with(viewBinding.board) {
         setup()
+        viewBinding.boardBg.setup()
     }
 
     private fun beginGame() = with(viewBinding.board) {
