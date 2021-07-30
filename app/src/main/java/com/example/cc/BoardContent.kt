@@ -43,14 +43,6 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
     private var mergedPos = mutableListOf<Int>()
     val rectAnimation = AnimatorSet()
 
-    private val boardPaint by lazy {
-        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#b8aca0")
-        paint.strokeWidth = 4f
-        paint.style = Paint.Style.FILL
-        paint
-    }
-
     private val boardPaintOver by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.color = Color.parseColor("#90b8aca0")
