@@ -34,7 +34,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
     private var right = 0f
     private var bottom = 0f
 
-    private var gameState = GameState.BEGIN
+    var gameState = GameState.BEGIN
 
     var onGameOver: (() -> Unit)? = null
     var onGameWin: (() -> Unit)? = null

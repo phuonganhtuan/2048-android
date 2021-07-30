@@ -1,11 +1,12 @@
 package com.example.cc
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.app.ActionBar
+import android.content.Context
+import android.os.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
 import com.example.cc.databinding.ActivityMainBinding
@@ -22,6 +23,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        val decorView = window.decorView
+        val uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN
+        decorView.systemUiVisibility = uiOptions
+        val actionBar: ActionBar? = actionBar
+        actionBar?.hide()
         Handler(Looper.getMainLooper()).postDelayed({
             initData()
             beginGame()
@@ -72,17 +78,47 @@ class MainActivity : AppCompatActivity() {
             displayScore()
         }
         viewBinding.buttonNew.setOnClickListener {
+            if (viewBinding.board.gameState == GameState.PLAYING) {
+                displayConfirm()
+            } else {
+                saveScoreIfNeed()
+                initData()
+                beginGame()
+                viewBinding.board.invalidate()
+            }
+        }
+        viewBinding.board.onGameOver = {
+            saveScoreIfNeed()
+            vibratePhone()
+        }
+        viewBinding.board.onGameWin = {
+            saveScoreIfNeed()
+            vibratePhone()
+        }
+        viewBinding.layoutInclude.buttonCancel.setOnClickListener {
+            hideConfirm()
+        }
+        viewBinding.layoutInclude.buttonOk.setOnClickListener {
+            hideConfirm()
             saveScoreIfNeed()
             initData()
             beginGame()
             viewBinding.board.invalidate()
         }
-        viewBinding.board.onGameOver = {
-            saveScoreIfNeed()
+        viewBinding.layoutConfirm.setOnClickListener {
+
         }
-        viewBinding.board.onGameWin = {
-            saveScoreIfNeed()
+        viewBinding.layoutConfirm.setOnTouchListener { v, event ->
+            true
         }
+    }
+
+    private fun displayConfirm() {
+        viewBinding.layoutConfirm.visibility = View.VISIBLE
+    }
+
+    private fun hideConfirm() {
+        viewBinding.layoutConfirm.visibility = View.GONE
     }
 
     private fun saveScoreIfNeed() {
@@ -111,4 +147,9 @@ class MainActivity : AppCompatActivity() {
         viewBinding.textBest.text = sharedPreferences.getInt("bestScore", 0).toString()
         viewBinding.textScore.text = "0"
     }
+}
+
+fun AppCompatActivity.vibratePhone() {
+    val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
 }
