@@ -12,8 +12,6 @@ import java.util.*
 
 class Board(context: Context?, attributeSet: AttributeSet) : View(context, attributeSet) {
 
-    var score = 0
-
     private var boardItemInset = 24f
 
     private var left = 0f

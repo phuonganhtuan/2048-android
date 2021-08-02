@@ -130,6 +130,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         setupRects()
         gameState = GameState.BEGIN
         score = 0
+        numOfColors = 5
     }
 
     private fun setupRects() {

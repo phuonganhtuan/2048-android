@@ -134,13 +134,13 @@ class MainActivity : AppCompatActivity() {
         viewBinding.textScore.text = viewBinding.board.score.toString()
         when (viewBinding.board.score) {
             1000 -> {
-                viewBinding.board.numOfColors += 1
+                viewBinding.board.numOfColors = 6
             }
             2200 -> {
-                viewBinding.board.numOfColors += 1
+                viewBinding.board.numOfColors = 7
             }
             3000 -> {
-                viewBinding.board.numOfColors += 1
+                viewBinding.board.numOfColors = 8
             }
         }
     }
