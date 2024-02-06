@@ -64,7 +64,7 @@
         android:gravity="center"
         android:text="Colors"
         android:textColor="@android:color/white"
-        android:textSize="48sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/board"
         app:layout_constraintDimensionRatio="3:2"
@@ -80,7 +80,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="56dp"
         android:layout_weight="3"
-        android:background="@drawable/bg_dark"
+        android:background="@drawable/bg_yellow"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/textTitle"
         app:layout_constraintEnd_toStartOf="@+id/gl2"
@@ -94,7 +94,7 @@
             android:gravity="center"
             android:text="SCORE"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
         <TextView
@@ -115,12 +115,12 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_weight="5"
-        android:background="@drawable/bg_button"
+        android:background="@drawable/bg_yellow"
         android:gravity="center"
         android:orientation="vertical"
         android:text="NEW GAME"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textTitle"
         app:layout_constraintEnd_toEndOf="@+id/layout2"
@@ -142,7 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="56dp"
-            android:background="@drawable/bg_dark"
+            android:background="@drawable/bg_yellow"
             android:orientation="vertical">
 
             <TextView
@@ -152,7 +152,7 @@
                 android:gravity="center"
                 android:text="BEST"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -188,7 +188,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Made by PAT"
-        android:textColor="#B3BFC9"
+        android:textColor="#bdbdbd"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

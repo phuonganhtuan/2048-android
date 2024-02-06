@@ -21,7 +21,7 @@ class Board(context: Context?, attributeSet: AttributeSet) : View(context, attri
 
     private val boardPaint by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#a0aeb8")
+        paint.color = Color.parseColor("#111111")
         paint.strokeWidth = 4f
         paint.style = Paint.Style.FILL
         paint
@@ -29,7 +29,7 @@ class Board(context: Context?, attributeSet: AttributeSet) : View(context, attri
 
     private val boardItemPaint by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#b3bec9")
+        paint.color = Color.parseColor("#252525")
         paint.strokeWidth = 4f
         paint.style = Paint.Style.FILL
         paint
