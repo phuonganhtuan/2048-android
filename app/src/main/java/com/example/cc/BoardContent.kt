@@ -45,7 +45,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
 
     private val boardPaintOver by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#90b8aca0")
+        paint.color = Color.parseColor("#60000000")
         paint.strokeWidth = 4f
         paint.style = Paint.Style.FILL
         paint
@@ -53,7 +53,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
 
     private val boardPaintWin by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#90ebc765")
+        paint.color = Color.parseColor("#60ffffff")
         paint.strokeWidth = 4f
         paint.style = Paint.Style.FILL
         paint
@@ -69,7 +69,7 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
 
     private val textPaint1 by lazy {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.parseColor("#666666")
+        paint.color = Color.parseColor("#999999")
         paint.strokeWidth = 4f
         paint.typeface = Typeface.DEFAULT_BOLD
         paint.textSize = 128f
@@ -112,17 +112,17 @@ class BoardContent(context: Context?, attributeSet: AttributeSet) : View(context
         itemPaint.clear()
         mergingTiles.clear()
         val colors = listOf(
-            "#f7f2e9",
-            "#f0e5d1",
-            "#f0bf84",
-            "#eba76c",
-            "#eb816c",
-            "#ed5651",
-            "#f7dd72",
-            "#f2d355",
-            "#f7d548",
-            "#f7d548",
-            "#c391ff"
+            "#2e2e2e",
+            "#3d3d3d",
+            "#5c5c5c",
+            "#cf8e57",
+            "#cf6955",
+            "#c73c38",
+            "#dbc25c",
+            "#d6b940",
+            "#d9b832",
+            "#d9b832",
+            "#7845b5"
         )
         for (element in colors) {
             val paint = Paint(Paint.ANTI_ALIAS_FLAG)
